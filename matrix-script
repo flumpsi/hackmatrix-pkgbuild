@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-BIN="${MATRIX_WLROOTS_BIN:-/usr/bin/matrix-binary}"
+set -x
+
+BIN="${MATRIX_WLROOTS_BIN:-/usr/share/HackMatrix/hackmatrix-binary}"
 
 export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp/xdg-runtime-$USER}"
 mkdir -p "$XDG_RUNTIME_DIR"
@@ -14,12 +16,6 @@ export WLR_NO_HARDWARE_CURSORS=1
 export MATRIX_WAYLANDAPP_SAMPLE_LOGS="${MATRIX_WAYLANDAPP_SAMPLE_LOGS:-1}"
 export WLR_APP_SAMPLE_LOG=1
 export ENABLE_RENDER_TMP_LOGS=1
-
-export CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/HackMatrix"
-if [ ! -d $CONFIG_DIR ]; then
-  mkdir -p "$CONFIG_DIR"
-  cp /usr/share/HackMatrix/. "$CONFIG_DIR/"
-fi
 
 BACKEND=""
 
@@ -54,6 +50,12 @@ if [[ -n "$BACKEND" ]]; then
     mkdir -p "$XDG_RUNTIME_DIR"
     chmod 700 "$XDG_RUNTIME_DIR"
   fi
+fi
+
+export CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/HackMatrix"
+if [ ! -d "$CONFIG_DIR" ]; then
+  mkdir -p "$CONFIG_DIR"
+  cp -r /usr/share/HackMatrix/db /usr/share/HackMatrix/vox /usr/share/HackMatrix/scripts/ /usr/share/HackMatrix/shaders /usr/share/HackMatrix/config.yaml "$CONFIG_DIR/"
 fi
 
 cd "$CONFIG_DIR" || {

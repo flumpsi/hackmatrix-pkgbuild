@@ -67,8 +67,8 @@ build() {
 package() {
   cd "$srcdir/HackMatrix"
   echo "Installing HackMatrix binaries"
-  install -Dm755 ../../matrix-script "$pkgdir/usr/bin/matrix"
-  install -Dm755 build/matrix "$pkgdir/usr/bin/matrix-binary"
+  install -Dm755 ../../matrix-script "$pkgdir/usr/bin/hackmatrix"
+  install -Dm755 build/matrix "$pkgdir/usr/share/HackMatrix/hackmatrix-binary"
   install -Dm755 ../../HackMatrix.desktop "$pkgdir/usr/share/applications/HackMatrix.desktop"
   install -Dm644 config.yaml "$pkgdir/usr/share/HackMatrix/config.yaml"
   cp -r vox shaders scripts db "$pkgdir/usr/share/HackMatrix/"
